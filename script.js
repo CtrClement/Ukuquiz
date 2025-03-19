@@ -78,3 +78,34 @@ function checkAnswer(index) {
 if (window.location.pathname.includes("quiz.html")) {
     loadQuiz();
 }
+
+// Charger un quiz créé en admin
+function loadCreatedQuiz() {
+    let storedQuiz = localStorage.getItem("createdQuiz");
+    if (storedQuiz) {
+        let quizData = JSON.parse(storedQuiz);
+        document.getElementById("quiz-title").innerText = quizData.title;
+        currentQuestion = 0;
+        questions = quizData.questions;
+        loadQuestion();
+    } else {
+        alert("Aucun quiz créé !");
+    }
+}
+
+// Modifier loadQuiz pour charger soit un quiz du JSON, soit un quiz de l'admin
+async function loadQuiz() {
+    let storedQuiz = localStorage.getItem("createdQuiz");
+    if (storedQuiz) {
+        loadCreatedQuiz();
+    } else {
+        const response = await fetch("quizzes.json");
+        const data = await response.json();
+        quizData = data.quizzes[0];
+
+        document.getElementById("quiz-title").innerText = quizData.title;
+        currentQuestion = 0;
+        questions = quizData.questions;
+        loadQuestion();
+    }
+}
