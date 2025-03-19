@@ -3,6 +3,13 @@ let quiz = {
     questions: []
 };
 
+document.addEventListener("DOMContentLoaded", function () {
+    if (localStorage.getItem("userRole") !== "admin") {
+        window.location.href = "login.html"; // Bloque l'accès si ce n'est pas un admin
+    }
+});
+
+
 // Ajout d'une réponse à la question actuelle
 function addAnswer() {
     let container = document.getElementById("answer-list");
