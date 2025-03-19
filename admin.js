@@ -14,6 +14,47 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+function editQuiz(index) {
+    let allQuizzes = JSON.parse(localStorage.getItem("quizzes")) || [];
+    let selectedQuiz = allQuizzes[index];
+
+    if (!selectedQuiz) return;
+
+    quizData = selectedQuiz; // Charge les données du quiz
+    document.getElementById("quiz-title").value = quizData.title;
+    displayQuestions(); // Affiche les questions
+
+    // Ajouter un bouton "Mettre à jour" au lieu de "Enregistrer"
+    let saveButton = document.querySelector("button[onclick='saveQuiz()']");
+    let updateButton = document.createElement("button");
+    updateButton.innerText = "Mettre à jour le Quiz";
+    updateButton.onclick = function () {
+        updateQuiz(index);
+    };
+
+    saveButton.parentNode.replaceChild(updateButton, saveButton);
+}
+
+function updateQuiz(index) {
+    let allQuizzes = JSON.parse(localStorage.getItem("quizzes")) || [];
+    allQuizzes[index] = quizData; // Met à jour le quiz
+    localStorage.setItem("quizzes", JSON.stringify(allQuizzes));
+
+    alert("Quiz mis à jour !");
+    resetQuiz();
+    displayQuizList();
+}
+
+function deleteQuiz(index) {
+    if (confirm("Es-tu sûr de vouloir supprimer ce quiz ?")) {
+        let allQuizzes = JSON.parse(localStorage.getItem("quizzes")) || [];
+        allQuizzes.splice(index, 1);
+        localStorage.setItem("quizzes", JSON.stringify(allQuizzes));
+
+        displayQuizList();
+    }
+}
+
 
 // Ajout d'une réponse à la question actuelle
 function addAnswer() {
