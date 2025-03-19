@@ -5,10 +5,11 @@ function checkAuth() {
     }
 }
 
-// Stockage des utilisateurs autorisés (à modifier)
+// Liste des utilisateurs
 const users = {
-    "joueur1": "mdp123",
-    "joueur2": "ukufa2024"
+    "joueur1": { password: "mdp123", role: "player" },
+    "joueur2": { password: "ukufa2024", role: "player" },
+    "admin": { password: "root", role: "admin" } // Ton accès admin
 };
 
 // Fonction de connexion
@@ -16,19 +17,35 @@ function login() {
     let username = document.getElementById("username").value;
     let password = document.getElementById("password").value;
 
-    if (users[username] && users[username] === password) {
+    if (users[username] && users[username].password === password) {
         localStorage.setItem("loggedInUser", username);
-        window.location.href = "quiz.html"; // Redirige vers le quiz
+        localStorage.setItem("userRole", users[username].role);
+
+        if (users[username].role === "admin") {
+            window.location.href = "admin.html"; // Redirige vers l'admin
+        } else {
+            window.location.href = "quiz.html"; // Redirige vers le quiz
+        }
     } else {
         document.getElementById("error-message").innerText = "Identifiants incorrects !";
+    }
+}
+
+// Fonction pour vérifier si l'utilisateur est connecté
+function checkAuth() {
+    let role = localStorage.getItem("userRole");
+    if (!role) {
+        window.location.href = "login.html"; // Si pas connecté, retour à login
     }
 }
 
 // Fonction de déconnexion
 function logout() {
     localStorage.removeItem("loggedInUser");
+    localStorage.removeItem("userRole");
     window.location.href = "login.html";
 }
+
 
 // Charger le quiz depuis `quizzes.json`
 async function loadQuiz() {
