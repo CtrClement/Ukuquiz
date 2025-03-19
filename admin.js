@@ -69,6 +69,23 @@ function updateQuestionList() {
         list.appendChild(li);
     });
 }
+// Fonction pour afficher les questions dans la liste avec options Modifier / Supprimer
+function displayQuestions() {
+    let questionsList = document.getElementById("questions-list");
+    questionsList.innerHTML = ""; // On vide la liste avant d'afficher les nouvelles questions
+
+    quizData.questions.forEach((q, index) => {
+        let listItem = document.createElement("li");
+        listItem.innerHTML = `
+            <strong>${q.text}</strong> (${q.type}) - <i>${q.points} pts</i>
+            <br> <small>Correction: ${q.correction || "Aucune"}</small>
+            <br> <button class="edit-btn" onclick="editQuestion(${index})">✏️ Modifier</button>
+            <button class="delete-btn" onclick="deleteQuestion(${index})">🗑️ Supprimer</button>
+        `;
+        questionsList.appendChild(listItem);
+    });
+}
+
 
 // Sauvegarde le quiz
 function saveQuiz() {
