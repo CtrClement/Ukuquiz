@@ -24,6 +24,64 @@ function addAnswer() {
     container.appendChild(div);
 }
 
+function editQuestion(index) {
+    let question = quizData.questions[index];
+
+    document.getElementById("question-text").value = question.text;
+    document.getElementById("question-type").value = question.type;
+    document.getElementById("question-image").value = question.image || "";
+    document.getElementById("correction-text").value = question.correction || "";
+    document.getElementById("question-points").value = question.points;
+
+    // Ajoute un bouton "Mettre à jour"
+    let updateBtn = document.createElement("button");
+    updateBtn.innerText = "Mettre à jour";
+    updateBtn.onclick = function () {
+        updateQuestion(index);
+    };
+
+    // Ajoute ce bouton à la page (remplace "Ajouter Question")
+    let addBtn = document.querySelector("button[onclick='saveQuestion()']");
+    addBtn.parentNode.replaceChild(updateBtn, addBtn);
+}
+
+function updateQuestion(index) {
+    quizData.questions[index] = {
+        text: document.getElementById("question-text").value,
+        type: document.getElementById("question-type").value,
+        image: document.getElementById("question-image").value,
+        correction: document.getElementById("correction-text").value,
+        points: parseInt(document.getElementById("question-points").value) || 1,
+    };
+
+    displayQuestions(); // Met à jour la liste
+    resetForm(); // Remet les champs à zéro
+}
+
+function deleteQuestion(index) {
+    if (confirm("Es-tu sûr de vouloir supprimer cette question ?")) {
+        quizData.questions.splice(index, 1);
+        displayQuestions(); // Rafraîchit la liste après suppression
+    }
+}
+
+function resetForm() {
+    document.getElementById("question-text").value = "";
+    document.getElementById("question-type").value = "qcm";
+    document.getElementById("question-image").value = "";
+    document.getElementById("correction-text").value = "";
+    document.getElementById("question-points").value = "1";
+
+    // Remettre le bouton "Ajouter la Question" après une mise à jour
+    let updateBtn = document.querySelector("button[onclick^='updateQuestion']");
+    if (updateBtn) {
+        let addBtn = document.createElement("button");
+        addBtn.innerText = "Ajouter la Question";
+        addBtn.setAttribute("onclick", "saveQuestion()");
+        updateBtn.parentNode.replaceChild(addBtn, updateBtn);
+    }
+}
+
 // Sauvegarde la question en mémoire
 function saveQuestion() {
     let questionText = document.getElementById("question-text").value;
