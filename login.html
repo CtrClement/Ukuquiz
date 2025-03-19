@@ -13,6 +13,21 @@
     <input type="password" id="password">
     <button onclick="login()">Se connecter</button>
     <p id="error-message" style="color: red;"></p>
+    <script>
+    // Vérifie si un admin est connecté pour afficher un bouton
+    document.addEventListener("DOMContentLoaded", function () {
+        let role = localStorage.getItem("userRole");
+        if (role === "admin") {
+            let adminButton = document.createElement("button");
+            adminButton.innerText = "Accéder à l'admin";
+            adminButton.onclick = function () {
+                window.location.href = "admin.html";
+            };
+            document.body.appendChild(adminButton);
+        }
+    });
+</script>
+
     <script src="script.js"></script>
 
 </body>
