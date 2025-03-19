@@ -1,3 +1,8 @@
+function loadQuizzes() {
+    let allQuizzes = JSON.parse(localStorage.getItem("quizzes")) || [];
+    displayQuizList();
+}
+
 let quiz = {
     title: "",
     questions: []
@@ -43,6 +48,29 @@ function editQuestion(index) {
     // Ajoute ce bouton à la page (remplace "Ajouter Question")
     let addBtn = document.querySelector("button[onclick='saveQuestion()']");
     addBtn.parentNode.replaceChild(updateBtn, addBtn);
+}
+function displayQuizList() {
+    let quizListContainer = document.getElementById("quiz-list");
+    quizListContainer.innerHTML = "";
+
+    let allQuizzes = JSON.parse(localStorage.getItem("quizzes")) || [];
+
+    if (allQuizzes.length === 0) {
+        quizListContainer.innerHTML = "<p>Aucun quiz enregistré.</p>";
+        return;
+    }
+
+    allQuizzes.forEach((quiz, index) => {
+        let quizItem = document.createElement("div");
+        quizItem.classList.add("quiz-item");
+        quizItem.innerHTML = `
+            <strong>${quiz.title}</strong> (${quiz.questions.length} questions)
+            <br>
+            <button onclick="editQuiz(${index})">✏️ Modifier</button>
+            <button onclick="deleteQuiz(${index})">🗑️ Supprimer</button>
+        `;
+        quizListContainer.appendChild(quizItem);
+    });
 }
 
 function updateQuestion(index) {
@@ -114,6 +142,21 @@ function saveQuestion() {
 
     quiz.questions.push(newQuestion);
     updateQuestionList();
+}
+
+function saveQuiz() {
+    if (!quizData.title || quizData.questions.length === 0) {
+        alert("Le quiz doit avoir un titre et au moins une question !");
+        return;
+    }
+
+    let allQuizzes = JSON.parse(localStorage.getItem("quizzes")) || [];
+    allQuizzes.push(quizData);
+    localStorage.setItem("quizzes", JSON.stringify(allQuizzes));
+
+    alert("Quiz enregistré !");
+    resetQuiz();
+    displayQuizList(); // On met à jour la liste des quiz après enregistrement
 }
 
 // Met à jour l'affichage des questions ajoutées
