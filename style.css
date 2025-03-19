@@ -1,0 +1,90 @@
+/* Styles généraux */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+/* Conteneur principal */
+.container {
+    width: 50%;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    margin: 20px auto;
+}
+
+/* Titres */
+h1, h2, h3 {
+    color: #333;
+}
+
+/* Inputs et select */
+input[type="text"], input[type="password"], input[type="number"], textarea, select {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Boutons */
+button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Style spécifique pour le bouton Admin */
+.admin-button {
+    background-color: #28a745;
+}
+
+.admin-button:hover {
+    background-color: #218838;
+}
+
+/* Liste des questions */
+#questions-list {
+    text-align: left;
+    padding: 0;
+    list-style-type: none;
+}
+
+#questions-list li {
+    background: #f8f9fa;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Espace pour ajouter des réponses */
+#answers-container {
+    text-align: left;
+    margin: 10px auto;
+    width: 80%;
+}
+
+/* Connexion */
+#login-container {
+    width: 300px;
+    margin: auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
