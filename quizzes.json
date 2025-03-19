@@ -1,0 +1,20 @@
+{
+    "quizzes": [
+        {
+            "id": "quiz1",
+            "title": "Quiz Ukufa - Semaine 1",
+            "questions": [
+                {
+                    "question": "Quelle est la couleur de l'éther dans Ukufa ?",
+                    "answers": ["Rouge", "Violet", "Turquoise", "Noir"],
+                    "correct": 2
+                },
+                {
+                    "question": "Quel peuple a été marqué par le Grand Commerce ?",
+                    "answers": ["Les Abyssaux", "Les Reichorui", "Les Cuvari", "Les Tieffelins"],
+                    "correct": 1
+                }
+            ]
+        }
+    ]
+}
